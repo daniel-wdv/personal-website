@@ -1,0 +1,62 @@
+---
+import { Image } from "astro:assets";
+import Icon from "./Icon.astro";
+import { site } from "../config/site";
+import portrait from "../assets/daniel.png";
+---
+
+<header
+  class="mx-auto flex min-h-svh max-w-2xl flex-col justify-center px-6 py-24"
+>
+  <div class="flex items-center gap-5 sm:gap-6">
+    <Image
+      src={portrait}
+      alt={site.name}
+      width={320}
+      widths={[160, 320]}
+      sizes="160px"
+      loading="eager"
+      class="size-32 shrink-0 rounded-full border-2 border-accent object-cover sm:size-40"
+    />
+
+    <div class="min-w-0">
+      <p class="font-mono text-xs tracking-[0.2em] text-accent uppercase">
+        {site.role}
+      </p>
+
+      <h1 class="mt-2 text-3xl font-semibold tracking-tight text-balance sm:text-5xl">
+        {site.name}
+      </h1>
+    </div>
+  </div>
+
+  <p class="mt-7 max-w-xl text-lg leading-relaxed text-muted text-pretty">
+    I like picking up a problem that is not fully defined yet, asking the
+    questions needed to understand it and turning it into something that works
+    in production.
+  </p>
+
+  <nav class="mt-10 flex flex-wrap gap-x-6 gap-y-3 font-mono text-sm">
+    {
+      site.links.map((link) => (
+        <a
+          href={link.href}
+          class="group flex items-center gap-2 text-muted transition-colors hover:text-accent"
+        >
+          <Icon name={link.icon} class="size-4.5 shrink-0" />
+          <span class="underline decoration-border underline-offset-4 transition-colors group-hover:decoration-accent">
+            {link.label}
+          </span>
+        </a>
+      ))
+    }
+  </nav>
+
+  <a
+    href="#about"
+    class="mt-20 flex items-center gap-2.5 font-mono text-xs tracking-[0.2em] text-muted uppercase transition-colors hover:text-accent"
+  >
+    Scroll
+    <Icon name="arrow-down" class="size-5 shrink-0" />
+  </a>
+</header>

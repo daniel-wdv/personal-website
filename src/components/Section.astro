@@ -1,0 +1,23 @@
+---
+/**
+ * Shared section wrapper. Keeps vertical rhythm, max width and heading style
+ * consistent across every section of the page.
+ */
+interface Props {
+  id: string;
+  label: string;
+}
+
+const { id, label } = Astro.props;
+---
+
+<section id={id} class="border-t border-border py-20 sm:py-28">
+  <div class="mx-auto max-w-2xl px-6">
+    <h2 class="font-mono text-xs tracking-[0.2em] text-accent uppercase">
+      {label}
+    </h2>
+    <div class="mt-8">
+      <slot />
+    </div>
+  </div>
+</section>

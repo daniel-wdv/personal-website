@@ -1,0 +1,40 @@
+---
+import { Image } from "astro:assets";
+import Section from "./Section.astro";
+import dog from "../assets/dog.jpg";
+---
+
+<Section id="interests" label="Outside work">
+  <div class="grid gap-10 sm:grid-cols-[1fr_auto] sm:items-start">
+    <div class="space-y-5 text-lg leading-relaxed text-muted text-pretty">
+      <p>
+        Outside of work I like to keep moving. I play team sports during the
+        week and go to the gym most days.
+      </p>
+
+      <p>
+        My dog comes with me almost everywhere. He is the most chill dog you
+        will ever meet, great with people and with other dogs, and his favourite
+        place is the beach. Mine too.
+      </p>
+
+      <p>
+        I love the sea and pretty much anything calm. I am also the person who
+        always wants to try the new restaurant, the more different the food the
+        better.
+      </p>
+    </div>
+
+    <!-- Displayed at 260px max, so cap the base width: without it Astro emits a
+         full-resolution fallback for the plain `src` attribute. -->
+    <Image
+      src={dog}
+      alt="Daniel with his golden retriever on a sunny day"
+      width={520}
+      widths={[260, 520]}
+      sizes="260px"
+      loading="lazy"
+      class="aspect-[3/4] w-65 max-w-full rounded-lg border border-border object-cover object-[50%_70%]"
+    />
+  </div>
+</Section>

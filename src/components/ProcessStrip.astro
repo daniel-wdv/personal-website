@@ -1,0 +1,86 @@
+---
+/**
+ * The end-to-end ownership cycle, as a connected sequence.
+ *
+ * Steps are visible by default and the scroll-driven reveal is layered on only
+ * where `animation-timeline` is supported, so browsers without it (and anyone
+ * with reduced motion enabled) simply get the static strip.
+ */
+const steps = [
+  "Requirements",
+  "Design",
+  "Plan",
+  "Build",
+  "Test",
+  "Release",
+];
+---
+
+<ol class="process mt-10 grid gap-px overflow-hidden rounded-lg border border-border sm:grid-cols-6">
+  {
+    steps.map((step, i) => (
+      <li
+        class="process-step relative bg-surface px-4 py-5 text-center sm:px-2"
+        style={`--step-index: ${i}`}
+      >
+        <span class="font-mono text-xs text-accent">
+          {String(i + 1).padStart(2, "0")}
+        </span>
+        {/* Drops to text-xs on desktop: at text-sm the longest label
+            ("Requirements") is wider than the 6-column cell allows. */}
+        <p class="mt-2 text-sm leading-tight text-text sm:text-xs">{step}</p>
+      </li>
+    ))
+  }
+</ol>
+
+<style>
+  /* The gap-px above lets the border colour show through as hairlines. */
+  .process {
+    background-color: var(--color-border);
+  }
+
+  /* A chevron straddling each hairline, so the strip reads as a sequence rather
+     than six unrelated boxes. Points down while stacked, right once in a row. */
+  .process-step:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -0.32rem;
+    width: 0.45rem;
+    height: 0.45rem;
+    border-top: 1.5px solid var(--color-accent-dim);
+    border-right: 1.5px solid var(--color-accent-dim);
+    transform: translateX(-50%) rotate(135deg);
+  }
+
+  @media (width >= 40rem) {
+    .process-step:not(:last-child)::after {
+      top: 50%;
+      right: -0.32rem;
+      bottom: auto;
+      left: auto;
+      transform: translateY(-50%) rotate(45deg);
+    }
+  }
+
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .process-step {
+        opacity: 0;
+        translate: 0 0.5rem;
+        animation: step-in linear forwards;
+        animation-timeline: view();
+        animation-range: entry 10% cover 32%;
+        animation-delay: calc(var(--step-index) * 40ms);
+      }
+    }
+  }
+
+  @keyframes step-in {
+    to {
+      opacity: 1;
+      translate: 0 0;
+    }
+  }
+</style>
