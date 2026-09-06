@@ -138,10 +138,10 @@ the systems, never Bloop's internal product names.**
    High visual impact, and it *is* the proof of distributed-systems work. Pure SVG + CSS.
 3. **Scroll-driven stack layers** — five bands (Mobile, Web, API, Services, Infrastructure)
    lighting up on scroll. Visualises the actual differentiator: full vertical coverage.
-4. **Animated "400+" counter** in the recommendations section. One line of work, big payoff.
 
-**Explicitly avoided:** terminal/CLI easter egg (on every dev portfolio), floating skills
-constellation (usually looks worse than a plain list), heavy 3D.
+**Explicitly avoided:** animated "400+" counter (considered and **rejected** — felt gimmicky;
+the quote carries the number on its own), terminal/CLI easter egg (on every dev portfolio),
+floating skills constellation (usually looks worse than a plain list), heavy 3D.
 
 ---
 
@@ -166,12 +166,32 @@ scenes. i18n. Project detail pages. Every one of these is a way to not ship.
 
 ---
 
-## 10. OPEN questions
+## 10. Interests section — copy
 
-- **Domain name** — `danielcarvalho.dev`? Check availability.
-- **Photos needed** — headshot (can reuse the CV one), dog photo, and confirm Luis/João are
-  happy for their photos to appear on a public site (they already appear on the CV, but that
-  goes to a smaller audience).
-- **Interests copy** — what to actually say beyond the dog. Keep it short and real.
-- **CV PDF on the site** — link the 2-page or the 3-page version? Probably 3-page, since the
-  recommendations are on the site anyway.
+> Outside of work I like to keep moving. I play team sports during the week and go to the gym
+> most days. My dog comes with me almost everywhere — he is the most chill dog you will ever
+> meet, great with people and with other dogs, and his favourite place is the beach. Mine too.
+> I love the sea and pretty much anything calm. I am also the person who always wants to try
+> the new restaurant, the more different the food the better.
+
+Photo: Daniel + dog, ideally at the beach.
+
+---
+
+## 11. Resolved
+
+- **Photo permission** — not a concern. Luis and João's photos go on the site; remove on
+  request if it ever comes up.
+- **CV PDF** — link the **3-page version** (with recommendations).
+- **Interests copy** — written, see §10.
+
+## 12. Still OPEN
+
+- **Domain** — decided *not* blocking. Launch on the free `*.pages.dev` subdomain. Buying a
+  domain (~€12–15/yr) is worth it mainly for **portability**: a host subdomain ties the URL to
+  Cloudflare, so switching to Vercel later breaks the link on every CV already sent. A domain
+  you own survives host changes.
+  **First check:** the CV already has a `Website` link — find out what URL it currently points
+  at. If a domain is already owned, reuse it and this question disappears.
+- **GitHub repo** — public or private? Public is the better default for a job hunt (recruiters
+  do look), and it makes the site itself a code sample. No remote configured yet.
