@@ -22,8 +22,21 @@ export const site = {
       href: "mailto:danielcarvalho.wd@gmail.com",
       icon: "mail",
     },
+    {
+      label: "CV",
+      href: "/daniel-carvalho-cv-with-recommendations-2026.pdf",
+      icon: "file",
+    },
+  ],
+  /** Anchor targets, in page order. Must match the section ids. */
+  nav: [
+    { label: "About", href: "#about" },
+    { label: "Work", href: "#work" },
+    { label: "Experience", href: "#experience" },
+    { label: "Contact", href: "#contact" },
   ],
 } as const satisfies {
   links: readonly { label: string; href: string; icon: IconName }[];
+  nav: readonly { label: string; href: string }[];
   [key: string]: unknown;
 };

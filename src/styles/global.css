@@ -11,6 +11,12 @@
   --color-accent: #2fb3a3;
   --color-accent-dim: #1d7a6f;
 
+  /* Total height of the sticky nav, border included (box-sizing is border-box).
+     Sections offset their scroll position by exactly this, so an anchor jump
+     lands the section edge flush under the nav instead of leaving a sliver of
+     the previous section visible. Change it in one place only. */
+  --spacing-nav: 3rem;
+
   --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,

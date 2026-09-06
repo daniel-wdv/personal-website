@@ -11,7 +11,9 @@ interface Props {
 const { id, label } = Astro.props;
 ---
 
-<section id={id} class="border-t border-border py-20 sm:py-28">
+{/* scroll-mt-nav matches the sticky nav's height exactly (see --spacing-nav),
+    so an anchor jump lands this section's top border flush under it. */}
+<section id={id} class="scroll-mt-nav border-t border-border py-20 sm:py-28">
   <div class="mx-auto max-w-2xl px-6">
     <h2 class="font-mono text-xs tracking-[0.2em] text-accent uppercase">
       {label}

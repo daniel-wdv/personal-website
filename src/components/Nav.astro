@@ -1,0 +1,28 @@
+---
+import { site } from "../config/site";
+---
+
+{/* Sticky rather than fixed, so it scrolls with the hero and only pins once the
+    page starts moving. No active-section highlighting: that is where these
+    normally start needing JavaScript. */}
+<nav
+  class="sticky top-0 z-10 h-nav border-b border-border/70 bg-bg/80 backdrop-blur-sm"
+  aria-label="Sections"
+>
+  <ul
+    class="mx-auto flex h-full max-w-2xl items-center gap-5 overflow-x-auto px-6 font-mono text-xs tracking-wider whitespace-nowrap"
+  >
+    {
+      site.nav.map((item) => (
+        <li>
+          <a
+            href={item.href}
+            class="text-muted uppercase transition-colors hover:text-accent"
+          >
+            {item.label}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>
