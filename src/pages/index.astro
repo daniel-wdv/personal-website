@@ -1,0 +1,43 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const links = [
+  { label: "GitHub", href: "https://github.com/daniel-wdv" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/danielcarvalhowd/" },
+  { label: "Email", href: "mailto:danielcarvalho.wd@gmail.com" },
+];
+---
+
+<Layout
+  title="Daniel Carvalho — Fullstack Engineer"
+  description="Fullstack engineer with over 7 years of experience building web platforms, mobile apps and backend systems."
+>
+  <main class="mx-auto flex min-h-screen max-w-2xl flex-col justify-center px-6 py-24">
+    <p class="font-mono text-sm tracking-widest text-accent uppercase">
+      Fullstack Engineer
+    </p>
+
+    <h1 class="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
+      Daniel Carvalho
+    </h1>
+
+    <p class="mt-6 text-lg leading-relaxed text-muted">
+      I like picking up a problem that is not fully defined yet, asking the
+      questions needed to understand it and turning it into something that works
+      in production.
+    </p>
+
+    <nav class="mt-10 flex flex-wrap gap-x-6 gap-y-3 font-mono text-sm">
+      {
+        links.map((link) => (
+          <a
+            href={link.href}
+            class="text-muted underline decoration-border underline-offset-4 transition-colors hover:text-accent hover:decoration-accent"
+          >
+            {link.label}
+          </a>
+        ))
+      }
+    </nav>
+  </main>
+</Layout>
