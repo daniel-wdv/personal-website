@@ -21,4 +21,20 @@ const experience = defineCollection({
   }),
 });
 
-export const collections = { experience };
+/**
+ * Selected work. `order` is manual rather than chronological: these are picked
+ * to lead with the strongest story, not the most recent one.
+ */
+const projects = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/projects" }),
+  schema: z.object({
+    title: z.string(),
+    summary: z.string(),
+    year: z.string(),
+    order: z.number().int().positive(),
+    stack: z.array(z.string()).nonempty(),
+    highlights: z.array(z.string()).default([]),
+  }),
+});
+
+export const collections = { experience, projects };

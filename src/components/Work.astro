@@ -1,0 +1,64 @@
+---
+import { getCollection, render } from "astro:content";
+import Section from "./Section.astro";
+
+const projects = (await getCollection("projects")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+
+const entries = await Promise.all(
+  projects.map(async (project) => ({
+    ...project,
+    Content: (await render(project)).Content,
+  })),
+);
+---
+
+<Section id="work" label="Selected work">
+  <div class="space-y-5">
+    {
+      entries.map(({ data, Content }) => (
+        <article class="rounded-lg border border-border bg-surface p-6 sm:p-7">
+          <p class="font-mono text-xs tracking-wider text-accent">{data.year}</p>
+
+          <h3 class="mt-2 text-xl font-semibold tracking-tight text-balance text-text">
+            {data.title}
+          </h3>
+
+          <p class="mt-2 text-lg leading-relaxed text-text text-pretty">
+            {data.summary}
+          </p>
+
+          <div class="mt-4 space-y-4 leading-relaxed text-muted text-pretty">
+            <Content />
+          </div>
+
+          {data.highlights.length > 0 && (
+            <ul class="mt-5 space-y-2 text-muted text-pretty">
+              {data.highlights.map((highlight) => (
+                <li class="relative pl-5 leading-relaxed">
+                  <span
+                    aria-hidden="true"
+                    class="absolute left-0 top-[0.7em] size-1 rounded-full bg-accent-dim"
+                  />
+                  {highlight}
+                </li>
+              ))}
+            </ul>
+          )}
+
+          <ul
+            class="mt-6 flex flex-wrap gap-2"
+            aria-label={`Built with, ${data.title}`}
+          >
+            {data.stack.map((tech) => (
+              <li class="rounded border border-border px-2 py-1 font-mono text-xs text-muted">
+                {tech}
+              </li>
+            ))}
+          </ul>
+        </article>
+      ))
+    }
+  </div>
+</Section>
