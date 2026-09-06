@@ -2,6 +2,8 @@
 import Icon from "./Icon.astro";
 import Section from "./Section.astro";
 import { site } from "../config/site";
+
+const linkedin = site.links.find((link) => link.icon === "linkedin")!;
 ---
 
 <Section id="contact" label="Contact">
@@ -10,11 +12,23 @@ import { site } from "../config/site";
     The quickest way to reach me is email or linkedin :)
   </p>
 
-  <a
-    href={`mailto:${site.email}`}
-    class="mt-6 inline-flex items-center gap-2.5 rounded-lg border border-accent px-5 py-3 font-mono text-sm text-accent transition-colors hover:bg-accent hover:text-bg"
-  >
-    <Icon name="mail" class="size-4.5 shrink-0" />
-    {site.email}
-  </a>
+  <div class="mt-6 flex flex-wrap gap-3">
+    <a
+      href={`mailto:${site.email}`}
+      class="inline-flex items-center gap-2.5 rounded-lg border border-accent px-5 py-3 font-mono text-sm text-accent transition-colors hover:bg-accent hover:text-bg"
+    >
+      <Icon name="mail" class="size-4.5 shrink-0" />
+      {site.email}
+    </a>
+
+    <a
+      href={linkedin.href}
+      rel="noopener noreferrer"
+      target="_blank"
+      class="inline-flex items-center gap-2.5 rounded-lg border border-border px-5 py-3 font-mono text-sm text-muted transition-colors hover:border-accent hover:text-accent"
+    >
+      <Icon name="linkedin" class="size-4.5 shrink-0" />
+      LinkedIn
+    </a>
+  </div>
 </Section>

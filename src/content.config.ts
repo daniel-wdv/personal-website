@@ -37,4 +37,20 @@ const projects = defineCollection({
   }),
 });
 
-export const collections = { experience, projects };
+/**
+ * Recommendations. The body is the quote, verbatim: these are other people's
+ * words and should not be edited or trimmed.
+ */
+const recommendations = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/recommendations" }),
+  schema: ({ image }) =>
+    z.object({
+      name: z.string(),
+      role: z.string(),
+      linkedin: z.string().url(),
+      photo: image(),
+      order: z.number().int().positive(),
+    }),
+});
+
+export const collections = { experience, projects, recommendations };

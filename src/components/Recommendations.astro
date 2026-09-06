@@ -1,0 +1,57 @@
+---
+import { Image } from "astro:assets";
+import { getCollection, render } from "astro:content";
+import Icon from "./Icon.astro";
+import Section from "./Section.astro";
+
+const items = (await getCollection("recommendations")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+
+const entries = await Promise.all(
+  items.map(async (item) => ({
+    ...item,
+    Content: (await render(item)).Content,
+  })),
+);
+---
+
+<Section id="recommendations" label="Recommendations">
+  <div class="space-y-10">
+    {
+      entries.map(({ data, Content }) => (
+        <figure class="border-l-2 border-accent-dim pl-5 sm:pl-6">
+          <blockquote class="space-y-4 leading-relaxed text-muted text-pretty">
+            <Content />
+          </blockquote>
+
+          <figcaption class="mt-5 flex items-center gap-3">
+            <Image
+              src={data.photo}
+              alt={data.name}
+              width={112}
+              widths={[56, 112]}
+              sizes="56px"
+              loading="lazy"
+              class="size-14 shrink-0 rounded-full border border-border object-cover"
+            />
+
+            <div class="min-w-0">
+              <p class="font-medium text-text">{data.name}</p>
+              <p class="font-mono text-xs text-muted">{data.role}</p>
+              <a
+                href={data.linkedin}
+                rel="noopener noreferrer"
+                target="_blank"
+                class="mt-1 inline-flex items-center gap-1.5 font-mono text-xs text-muted transition-colors hover:text-accent"
+              >
+                <Icon name="linkedin" class="size-3.5 shrink-0" />
+                LinkedIn
+              </a>
+            </div>
+          </figcaption>
+        </figure>
+      ))
+    }
+  </div>
+</Section>
