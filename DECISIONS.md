@@ -185,13 +185,12 @@ Photo: Daniel + dog, ideally at the beach.
 - **CV PDF** — link the **3-page version** (with recommendations).
 - **Interests copy** — written, see §10.
 
+- **Domain** — **no custom domain.** Launching on the free Cloudflare `*.pages.dev` subdomain.
+  The CV's `Website` link gets updated to point at the new URL once it is live. A domain can be
+  added later at any time without rebuilding anything; the only cost of waiting is that CVs sent
+  before a future host change would carry a stale link.
+- **GitHub repo** — **public**, `danielcarvalho-dc/personal-website`. Doubles as a code sample.
+
 ## 12. Still OPEN
 
-- **Domain** — decided *not* blocking. Launch on the free `*.pages.dev` subdomain. Buying a
-  domain (~€12–15/yr) is worth it mainly for **portability**: a host subdomain ties the URL to
-  Cloudflare, so switching to Vercel later breaks the link on every CV already sent. A domain
-  you own survives host changes.
-  **First check:** the CV already has a `Website` link — find out what URL it currently points
-  at. If a domain is already owned, reuse it and this question disappears.
-- **GitHub repo** — public or private? Public is the better default for a job hunt (recruiters
-  do look), and it makes the site itself a code sample. No remote configured yet.
+- Nothing blocking. Next step is scaffolding Astro (§9 build order, step 1).
