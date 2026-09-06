@@ -2,7 +2,7 @@
 name: João Neves
 role: CTO at Bloop
 linkedin: https://linkedin.com/in/joaodiasneves
-photo: ../../assets/joao-neves.png
+photo: joao
 order: 2
 ---
 

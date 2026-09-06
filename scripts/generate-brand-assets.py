@@ -112,6 +112,51 @@ def build_og_image() -> None:
     print(f"og.png written ({(PUBLIC / 'og.png').stat().st_size // 1024}K)")
 
 
+def build_site_images() -> None:
+    """
+    Pre-render every image the site uses, at 1x and 2x of its display size.
+
+    Astro's build-time image pipeline needs sharp, which does not run in our
+    host's build environment; left to itself the build silently falls back to
+    passthrough and writes /_image URLs that 404 in production. Generating the
+    derivatives here instead means what we test locally is exactly what ships.
+    Keep the sizes in sync with src/config/images.ts.
+    """
+    out = PUBLIC / "img"
+    out.mkdir(exist_ok=True)
+
+    # name, source, display width, aspect (w/h). Square crops are rendered as
+    # circles by CSS, so cropping here avoids any object-fit surprises.
+    specs = [
+        ("daniel", PORTRAIT, 160, 1 / 1),
+        ("luis", ROOT / "src/assets/luis-gestoso.png", 56, 1 / 1),
+        ("joao", ROOT / "src/assets/joao-neves.png", 56, 1 / 1),
+        ("dog", ROOT / "src/assets/dog.jpg", 260, 3 / 4),
+    ]
+
+    for name, source, width, aspect in specs:
+        original = Image.open(source).convert("RGB")
+        for scale in (1, 2):
+            w = width * scale
+            h = round(w / aspect)
+
+            # Centre-crop to the target aspect before resizing.
+            ow, oh = original.size
+            if ow / oh > aspect:
+                cw = round(oh * aspect)
+                box = ((ow - cw) // 2, 0, (ow + cw) // 2, oh)
+            else:
+                ch = round(ow / aspect)
+                top = round((oh - ch) * 0.35)  # bias upward: faces sit high
+                box = (0, top, ow, top + ch)
+
+            frame = original.crop(box).resize((w, h), Image.LANCZOS)
+            path = out / f"{name}-{w}.webp"
+            frame.save(path, "WEBP", quality=82, method=6)
+            print(f"  {path.name:18} {w}x{h}  {path.stat().st_size // 1024}K")
+
+
 if __name__ == "__main__":
     build_favicons()
     build_og_image()
+    build_site_images()

@@ -1,7 +1,7 @@
 ---
-import { Image } from "astro:assets";
 import { getCollection, render } from "astro:content";
 import Icon from "./Icon.astro";
+import { images } from "../config/images";
 import Section from "./Section.astro";
 
 const items = (await getCollection("recommendations")).sort(
@@ -26,14 +26,15 @@ const entries = await Promise.all(
           </blockquote>
 
           <figcaption class="mt-5 flex items-center gap-3">
-            <Image
-              src={data.photo}
+            <img
+              src={images[data.photo].src}
+              srcset={images[data.photo].srcset}
+              sizes={images[data.photo].sizes}
+              width={images[data.photo].width}
+              height={images[data.photo].height}
               alt={data.name}
-              width={112}
-              widths={[56, 112]}
-              sizes="56px"
               loading="lazy"
-              class="size-14 shrink-0 rounded-full border border-border object-cover"
+              class="size-14 shrink-0 rounded-full border border-border"
             />
 
             <div class="min-w-0">

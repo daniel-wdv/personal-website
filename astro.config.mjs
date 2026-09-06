@@ -1,5 +1,5 @@
 // @ts-check
-import { defineConfig, sharpImageService } from 'astro/config';
+import { defineConfig, passthroughImageService } from 'astro/config';
 
 import tailwindcss from '@tailwindcss/vite';
 
@@ -12,12 +12,12 @@ export default defineConfig({
   // /_image endpoint at runtime.
   output: 'static',
 
-  // Pin the image service explicitly. Left to its own devices the build can
-  // fall back to passthrough, which ships the original files and writes
-  // /_image URLs into the HTML that 404 on static hosting. Naming sharp here
-  // makes a missing dependency fail the build instead of degrading silently.
+  // Nothing goes through astro:assets: every image is pre-rendered by
+  // scripts/generate-brand-assets.py and referenced from src/config/images.ts.
+  // Passthrough guarantees the build never reaches for sharp, which does not
+  // run in our host's build environment.
   image: {
-    service: sharpImageService(),
+    service: passthroughImageService(),
   },
 
   vite: {

@@ -43,14 +43,14 @@ const projects = defineCollection({
  */
 const recommendations = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/recommendations" }),
-  schema: ({ image }) =>
-    z.object({
-      name: z.string(),
-      role: z.string(),
-      linkedin: z.string().url(),
-      photo: image(),
-      order: z.number().int().positive(),
-    }),
+  schema: z.object({
+    name: z.string(),
+    role: z.string(),
+    linkedin: z.string().url(),
+    /** Key into src/config/images.ts. */
+    photo: z.enum(["luis", "joao"]),
+    order: z.number().int().positive(),
+  }),
 });
 
 export const collections = { experience, projects, recommendations };

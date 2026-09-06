@@ -1,7 +1,6 @@
 ---
-import { Image } from "astro:assets";
 import Section from "./Section.astro";
-import dog from "../assets/dog.jpg";
+import { images } from "../config/images";
 ---
 
 <Section id="interests" label="Outside work">
@@ -25,16 +24,16 @@ import dog from "../assets/dog.jpg";
       </p>
     </div>
 
-    <!-- Displayed at 260px max, so cap the base width: without it Astro emits a
-         full-resolution fallback for the plain `src` attribute. -->
-    <Image
-      src={dog}
+    {/* Cropped to 3:4 by the generator, so no object-fit needed here. */}
+    <img
+      src={images.dog.src}
+      srcset={images.dog.srcset}
+      sizes={images.dog.sizes}
+      width={images.dog.width}
+      height={images.dog.height}
       alt="Daniel with his golden retriever on a sunny day"
-      width={520}
-      widths={[260, 520]}
-      sizes="260px"
       loading="lazy"
-      class="aspect-[3/4] w-65 max-w-full rounded-lg border border-border object-cover object-[50%_70%]"
+      class="w-65 max-w-full rounded-lg border border-border"
     />
   </div>
 </Section>

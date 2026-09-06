@@ -2,7 +2,7 @@
 name: Luis Gestoso Muñoz
 role: Engineering Manager at Bloop
 linkedin: https://www.linkedin.com/in/gestosomunoz
-photo: ../../assets/luis-gestoso.png
+photo: luis
 order: 1
 ---
 
