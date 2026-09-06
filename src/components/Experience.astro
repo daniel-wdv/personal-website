@@ -1,0 +1,82 @@
+---
+import { getCollection, render } from "astro:content";
+import Section from "./Section.astro";
+
+/** "2025-09" -> "Sep 2025". A null end date renders as "Present". */
+function formatMonth(value: string | null) {
+  if (value === null) return "Present";
+  const [year, month] = value.split("-").map(Number);
+  const name = new Date(Date.UTC(year, month - 1)).toLocaleDateString("en-GB", {
+    month: "short",
+    timeZone: "UTC",
+  });
+  return `${name} ${year}`;
+}
+
+const roles = (await getCollection("experience")).sort((a, b) =>
+  b.data.start.localeCompare(a.data.start),
+);
+
+const entries = await Promise.all(
+  roles.map(async (role) => ({
+    ...role,
+    Content: (await render(role)).Content,
+  })),
+);
+---
+
+<Section id="experience" label="Experience">
+  <ol class="relative">
+    {
+      entries.map(({ id, data, Content }) => (
+        <li class="relative border-l border-border pb-12 pl-7 last:pb-0">
+          {/* Node on the spine. */}
+          <span
+            aria-hidden="true"
+            class="absolute -left-[4.5px] top-1.5 size-2 rounded-full bg-accent ring-4 ring-bg"
+          />
+
+          <p class="font-mono text-xs tracking-wider text-accent">
+            {formatMonth(data.start)} - {formatMonth(data.end)}
+          </p>
+
+          {/* The {" "} markers are load-bearing: without them the compiler
+              collapses the newlines and the words run together. */}
+          <h3 class="mt-2 text-xl font-semibold tracking-tight text-text">
+            {data.role}{" "}
+            <span class="font-normal text-muted">at</span>{" "}
+            {data.company}
+          </h3>
+
+          <p class="mt-1 font-mono text-xs text-muted">{data.location}</p>
+
+          <div class="mt-4 leading-relaxed text-muted text-pretty">
+            <Content />
+          </div>
+
+          {data.highlights.length > 0 && (
+            <ul class="mt-4 space-y-2 text-muted text-pretty">
+              {data.highlights.map((highlight) => (
+                <li class="relative pl-5 leading-relaxed">
+                  <span
+                    aria-hidden="true"
+                    class="absolute left-0 top-[0.7em] size-1 rounded-full bg-accent-dim"
+                  />
+                  {highlight}
+                </li>
+              ))}
+            </ul>
+          )}
+
+          <ul class="mt-5 flex flex-wrap gap-2" aria-label={`Stack at ${data.company}`}>
+            {data.stack.map((tech) => (
+              <li class="rounded border border-border bg-surface px-2 py-1 font-mono text-xs text-muted">
+                {tech}
+              </li>
+            ))}
+          </ul>
+        </li>
+      ))
+    }
+  </ol>
+</Section>

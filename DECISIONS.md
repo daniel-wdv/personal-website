@@ -90,11 +90,13 @@ highlights: string[]     # 2-4 bullets
 
 ## 5. Hosting
 
-**Cloudflare Pages.** Free tier, unlimited bandwidth, global CDN, free SSL, deploy on git push,
-no cold starts. **Fallback: Vercel** if anything doesn't work.
+**Cloudflare Workers** (Pages is deprecated for new projects). Free tier, global CDN, free SSL,
+deploy on git push, no cold starts. **Fallback: Vercel** if anything doesn't work.
+
+Live at https://site.danielcarvalho-wd.workers.dev
 
 **Domain is not free** — ~€12–15/year (e.g. `danielcarvalho.dev`). Can launch on the free
-`*.pages.dev` subdomain, but a real domain is worth it given the link goes on CVs.
+`*.workers.dev` subdomain, but a real domain is worth it given the link goes on CVs.
 
 ---
 
@@ -154,7 +156,7 @@ scenes. i18n. Project detail pages. Every one of these is a way to not ship.
 
 ## 9. Build order
 
-1. Astro + Tailwind scaffold, deploy an empty page to Cloudflare Pages **on day one** — get
+1. Astro + Tailwind scaffold, deploy an empty page to Cloudflare **on day one** — get
    the pipeline working before there's anything to break.
 2. Hero + About + Contact. Site is now genuinely usable.
 3. Content collections + Experience timeline (static version, no scroll effects yet).
@@ -185,7 +187,7 @@ Photo: Daniel + dog, ideally at the beach.
 - **CV PDF** — link the **3-page version** (with recommendations).
 - **Interests copy** — written, see §10.
 
-- **Domain** — **no custom domain.** Launching on the free Cloudflare `*.pages.dev` subdomain.
+- **Domain** - **no custom domain.** Live at https://site.danielcarvalho-wd.workers.dev
   The CV's `Website` link gets updated to point at the new URL once it is live. A domain can be
   added later at any time without rebuilding anything; the only cost of waiting is that CVs sent
   before a future host change would carry a stale link.
