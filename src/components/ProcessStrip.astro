@@ -67,7 +67,6 @@ const steps = [
   @supports (animation-timeline: view()) {
     @media (prefers-reduced-motion: no-preference) {
       .process-step {
-        opacity: 0;
         translate: 0 0.5rem;
         animation: step-in linear forwards;
         animation-timeline: view();
@@ -77,9 +76,13 @@ const steps = [
     }
   }
 
+  /* Movement only, deliberately no opacity. Scroll-driven animations are
+     positional, not time-based: if the page settles partway through the range
+     and the reader does not scroll on, a faded step would stay faded, and
+     half-opacity accent text drops below the contrast floor. Translating is
+     safe because the text is fully legible at every point of the animation. */
   @keyframes step-in {
     to {
-      opacity: 1;
       translate: 0 0;
     }
   }
