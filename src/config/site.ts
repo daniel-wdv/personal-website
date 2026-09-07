@@ -22,11 +22,6 @@ export const site = {
       href: "mailto:danielcarvalho.wd@gmail.com",
       icon: "mail",
     },
-    {
-      label: "CV",
-      href: "/daniel-carvalho-cv-with-recommendations-2026.pdf",
-      icon: "file",
-    },
   ],
   /** Anchor targets, in page order. Must match the section ids. */
   nav: [

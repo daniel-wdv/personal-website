@@ -24,7 +24,7 @@ Consequences:
 Sections, in order:
 
 1. **Hero** — name, "Fullstack Engineer", one-liner from the CV summary, links to
-   GitHub / LinkedIn / CV PDF / email. Everything above the fold.
+   GitHub / LinkedIn / email. Everything above the fold.
 2. **About** — 3–4 sentences, first person, same voice as the CV summary.
 3. **Selected Work** — 4 projects (see §6).
 4. **Experience** — timeline tree (see §7), condensed. Detail lives in the CV.
@@ -210,7 +210,11 @@ Photo: Daniel + dog, ideally at the beach.
 
 - **Photo permission** — not a concern. Luis and João's photos go on the site; remove on
   request if it ever comes up.
-- **CV PDF** — link the **3-page version** (with recommendations).
+- **CV PDF** — **not published on the site.** It carries a phone number, and a PDF on a public
+  URL gets crawled and scraped; that is broadcast exposure, unlike emailing it to a named
+  employer. The site already covers the same ground, so anyone interested can ask by email or
+  LinkedIn. If a downloadable CV is ever wanted, publish a variant with the phone number
+  removed rather than the version sent to employers.
 - **Interests copy** — written, see §10.
 - **Domain** — **no custom domain.** Running on the free `*.workers.dev` subdomain. One can be
   added later without rebuilding anything; the only cost of waiting is that CVs already sent

@@ -6,7 +6,7 @@
  * Brand marks (github, linkedin) are filled paths; the rest are stroked so they
  * sit visually alongside text at the same weight.
  */
-export type IconName = "github" | "linkedin" | "mail" | "file" | "arrow-down";
+export type IconName = "github" | "linkedin" | "mail" | "arrow-down";
 
 interface Props {
   name: IconName;
@@ -48,12 +48,6 @@ const filled: Partial<Record<IconName, string>> = {
         <>
           <rect x="2" y="4" width="20" height="16" rx="2" />
           <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-        </>
-      )}
-      {name === "file" && (
-        <>
-          <path d="M15 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6Z" />
-          <path d="M14 2v4a2 2 0 0 0 2 2h4" />
         </>
       )}
       {name === "arrow-down" && (
