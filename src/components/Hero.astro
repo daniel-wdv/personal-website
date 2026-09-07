@@ -8,7 +8,7 @@ import { images } from "../config/images";
   id="top"
   class="mx-auto flex min-h-svh max-w-2xl flex-col justify-center px-6 py-24"
 >
-  <div class="flex items-center gap-5 sm:gap-6">
+  <div class="enter flex items-center gap-5 sm:gap-6" style="--i: 0">
     <img
       src={images.portrait.src}
       srcset={images.portrait.srcset}
@@ -31,13 +31,13 @@ import { images } from "../config/images";
     </div>
   </div>
 
-  <p class="mt-7 max-w-xl text-lg leading-relaxed text-muted text-pretty">
+  <p class="enter enter-fade mt-7 max-w-xl text-lg leading-relaxed text-muted text-pretty" style="--i: 1">
     I like picking up a problem that is not fully defined yet, asking the
     questions needed to understand it and turning it into something that works
     in production.
   </p>
 
-  <nav class="mt-10 flex flex-wrap gap-x-6 gap-y-3 font-mono text-sm">
+  <nav class="enter enter-fade mt-10 flex flex-wrap gap-x-6 gap-y-3 font-mono text-sm" style="--i: 2">
     {
       site.links.map((link) => (
         <a
@@ -55,9 +55,49 @@ import { images } from "../config/images";
 
   <a
     href="#about"
-    class="mt-20 flex items-center gap-2.5 font-mono text-xs tracking-[0.2em] text-muted uppercase transition-colors hover:text-accent"
+    style="--i: 3"
+    class="enter enter-fade mt-20 flex items-center gap-2.5 font-mono text-xs tracking-[0.2em] text-muted uppercase transition-colors hover:text-accent"
   >
     Scroll
     <Icon name="arrow-down" class="size-5 shrink-0" />
   </a>
 </header>
+
+<style>
+  /* A one-time entrance on page load.
+
+     Unlike the scroll-driven effects elsewhere on the site, this runs on a
+     clock, so it always reaches its end state. That is why opacity is safe
+     here: a scroll timeline can rest mid-range and leave text permanently
+     faded (the contrast bug in DECISIONS.md), but a timed animation cannot.
+
+     Nothing is hidden without the animation: the starting state only applies
+     inside the reduced-motion guard, so if motion is off the hero renders
+     normally. */
+  @media (prefers-reduced-motion: no-preference) {
+    .enter {
+      translate: 0 0.75rem;
+      animation: enter 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      animation-delay: calc(var(--i) * 90ms);
+    }
+  }
+
+    .enter-fade {
+      opacity: 0;
+      animation-name: enter-fade;
+    }
+  }
+
+  @keyframes enter {
+    to {
+      translate: 0 0;
+    }
+  }
+
+  @keyframes enter-fade {
+    to {
+      opacity: 1;
+      translate: 0 0;
+    }
+  }
+</style>
