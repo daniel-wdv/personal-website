@@ -20,7 +20,7 @@ const entries = await Promise.all(
   <div class="space-y-5">
     {
       entries.map(({ data, Content }) => (
-        <article class="rounded-lg border border-border bg-surface p-6 sm:p-7">
+        <article class="group rounded-lg border border-border bg-surface p-6 transition-colors duration-300 hover:border-accent-dim sm:p-7">
           <p class="font-mono text-xs tracking-wider text-accent">{data.year}</p>
 
           <h3 class="mt-2 text-xl font-semibold tracking-tight text-balance text-text">
@@ -57,7 +57,7 @@ const entries = await Promise.all(
             aria-label={`Built with, ${data.title}`}
           >
             {data.stack.map((tech) => (
-              <li class="rounded border border-border px-2 py-1 font-mono text-xs text-muted">
+              <li class="rounded border border-border px-2 py-1 font-mono text-xs text-muted transition-colors duration-300 group-hover:border-accent-dim group-hover:text-text">
                 {tech}
               </li>
             ))}
