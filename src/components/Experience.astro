@@ -26,14 +26,18 @@ const entries = await Promise.all(
 ---
 
 <Section id="experience" label="Experience">
-  <ol class="relative">
+  <ol class="timeline relative">
+    {/* Teal line that draws itself down over the grey track as you scroll.
+        Purely decorative, so unlike the content it is hidden rather than shown
+        when scroll-driven animation is unavailable. */}
+    <span aria-hidden="true" class="spine absolute top-0 left-0 z-[1] w-px bg-accent"></span>
     {
       entries.map(({ data, Content }) => (
         <li class="relative border-l border-border pb-12 pl-7 last:pb-0">
           {/* Node on the spine. */}
           <span
             aria-hidden="true"
-            class="absolute -left-[4.5px] top-1.5 size-2 rounded-full bg-accent ring-4 ring-bg"
+            class="absolute -left-[4.5px] top-1.5 z-[2] size-2 rounded-full bg-accent ring-4 ring-bg"
           />
 
           <p class="font-mono text-xs tracking-wider text-accent">
@@ -83,4 +87,43 @@ const entries = await Promise.all(
     }
   </ol>
 </Section>
+
+<style>
+  .timeline {
+    view-timeline-name: --timeline;
+  }
+
+  .spine {
+    height: 100%;
+    transform-origin: top;
+    /* Collapsed by default: without a scroll timeline there is simply no
+       overlay, which is how the section looked before. */
+    scale: 1 0;
+  }
+
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .spine {
+        /* Longhands on purpose. Written as the `animation` shorthand, the
+           minifier folds animation-timeline into it, and Chrome drops the whole
+           declaration: a timeline is reset-only in that shorthand, and a
+           --dashed-ident there is ambiguous with animation-name. */
+        animation-name: draw;
+        animation-duration: 1ms;
+        animation-timing-function: linear;
+        animation-fill-mode: forwards;
+        animation-timeline: --timeline;
+        /* Percentages, deliberately: the fill should track progress through the
+           whole list rather than cover a fixed distance. */
+        animation-range: cover 18% cover 82%;
+      }
+    }
+  }
+
+  @keyframes draw {
+    to {
+      scale: 1 1;
+    }
+  }
+</style>
 
