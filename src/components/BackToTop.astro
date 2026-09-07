@@ -1,0 +1,43 @@
+---
+import Icon from "./Icon.astro";
+---
+
+<a
+  href="#top"
+  aria-label="Back to top"
+  class="back-to-top fixed right-5 bottom-5 z-20 flex size-11 items-center justify-center rounded-full border-2 border-accent bg-bg/85 text-accent backdrop-blur-sm transition-colors hover:bg-accent hover:text-bg sm:right-8 sm:bottom-8"
+>
+  <Icon name="arrow-up" class="size-5" />
+</a>
+
+<style>
+  /* Fades in over the first viewport of scrolling: in the hero it would sit
+     next to the scroll cue and point back at what you are already looking at.
+
+     Visible by default, so it stays usable where scroll-driven animation is
+     unsupported and for reduced-motion readers. `pointer-events` is animated
+     alongside opacity, otherwise the invisible button would still swallow
+     clicks in the corner of the hero. */
+  @supports (animation-timeline: scroll()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .back-to-top {
+        animation: reveal linear forwards;
+        animation-timeline: scroll(root block);
+        animation-range: 50vh 100vh;
+      }
+    }
+  }
+
+  @keyframes reveal {
+    from {
+      opacity: 0;
+      scale: 0.8;
+      pointer-events: none;
+    }
+    to {
+      opacity: 1;
+      scale: 1;
+      pointer-events: auto;
+    }
+  }
+</style>
