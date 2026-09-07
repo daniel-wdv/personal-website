@@ -21,3 +21,6 @@ pnpm-debug.log*
 .idea/
 .vscode/*
 !.vscode/extensions.json
+
+# Personal planning notes, kept local
+DECISIONS.md
