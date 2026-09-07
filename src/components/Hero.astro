@@ -66,38 +66,40 @@ import { images } from "../config/images";
 <style>
   /* A one-time entrance on page load.
 
-     Unlike the scroll-driven effects elsewhere on the site, this runs on a
-     clock, so it always reaches its end state. That is why opacity is safe
-     here: a scroll timeline can rest mid-range and leave text permanently
-     faded (the contrast bug in DECISIONS.md), but a timed animation cannot.
+     The hidden state lives ONLY in the keyframes, never in the resting rule.
+     An earlier version set `opacity: 0` on the element and relied on the
+     animation plus `forwards` to reveal it, which meant anything that stopped
+     the animation running left the text invisible for good. Under reduced
+     motion that is exactly what happened: no animation, no duration, permanently
+     blank tagline and links.
 
-     Nothing is hidden without the animation: the starting state only applies
-     inside the reduced-motion guard, so if motion is off the hero renders
-     normally. */
+     Animating the portrait's opacity is also off limits, separately: Chrome
+     will not treat an element at `opacity: 0` as an LCP candidate, so fading it
+     stops Largest Contentful Paint being recorded at all. It moves, never fades. */
   @media (prefers-reduced-motion: no-preference) {
     .enter {
-      translate: 0 0.75rem;
-      animation: enter 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      /* `backwards` holds the from-state through the delay. */
+      animation: enter 0.5s cubic-bezier(0.22, 1, 0.36, 1) backwards;
       animation-delay: calc(var(--i) * 90ms);
     }
-  }
 
     .enter-fade {
-      opacity: 0;
       animation-name: enter-fade;
     }
   }
 
+  /* Only `from` is declared: the end state is the element's own resting style,
+     so nothing here is required for the content to be visible. */
   @keyframes enter {
-    to {
-      translate: 0 0;
+    from {
+      translate: 0 0.75rem;
     }
   }
 
   @keyframes enter-fade {
-    to {
-      opacity: 1;
-      translate: 0 0;
+    from {
+      opacity: 0;
+      translate: 0 0.75rem;
     }
   }
 </style>
