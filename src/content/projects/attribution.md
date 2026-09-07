@@ -3,6 +3,7 @@ title: Purchase attribution across a whole product
 summary: The system that works out which post led to a sale, and who gets paid for it.
 year: "2026"
 order: 1
+diagram: attribution
 stack:
   - TypeScript
   - Next.js

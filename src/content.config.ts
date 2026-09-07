@@ -34,6 +34,8 @@ const projects = defineCollection({
     order: z.number().int().positive(),
     stack: z.array(z.string()).nonempty(),
     highlights: z.array(z.string()).default([]),
+    /** Opts this card into an inline diagram. */
+    diagram: z.enum(["attribution", "social-core"]).optional(),
   }),
 });
 

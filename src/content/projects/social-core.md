@@ -3,6 +3,7 @@ title: Replacing a paid social platform with our own
 summary: Bringing feeds, posts, likes and follows in-house to cut a recurring bill.
 year: "2026"
 order: 2
+diagram: social-core
 stack:
   - C# / .NET
   - PostgreSQL

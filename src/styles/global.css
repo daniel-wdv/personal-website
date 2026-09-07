@@ -35,6 +35,77 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Shared chrome for the inline SVG diagrams. Each diagram component supplies
+   only its own geometry and offset-paths. */
+@layer components {
+  .diagram .node {
+    fill: var(--color-surface);
+    stroke: var(--color-border);
+    stroke-width: 1;
+  }
+
+  .diagram .label {
+    fill: var(--color-text);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    text-anchor: middle;
+  }
+
+  .diagram .note {
+    fill: var(--color-muted);
+    font-family: var(--font-mono);
+    font-size: 10px;
+  }
+
+  .diagram .edge {
+    fill: none;
+    stroke: var(--color-border);
+    stroke-width: 1.5;
+  }
+
+  .diagram .boundary {
+    fill: none;
+    stroke: var(--color-border);
+    stroke-dasharray: 4 4;
+  }
+
+  .diagram .tx {
+    fill: none;
+    stroke: var(--color-accent-dim);
+    stroke-dasharray: 4 4;
+  }
+
+  /* Parked and invisible by default: every diagram must read on its own for
+     reduced-motion users and where offset-path is unsupported. */
+  .diagram .dot {
+    fill: var(--color-accent);
+    opacity: 0;
+  }
+
+  @supports (offset-path: path("M0 0 H1")) {
+    @media (prefers-reduced-motion: no-preference) {
+      .diagram .dot {
+        animation: flow 2.2s linear infinite;
+      }
+    }
+  }
+}
+
+@keyframes flow {
+  0% {
+    offset-distance: 0%;
+    opacity: 0;
+  }
+  15%,
+  85% {
+    opacity: 1;
+  }
+  100% {
+    offset-distance: 100%;
+    opacity: 0;
+  }
+}
+
 /* Every scroll-driven effect must degrade to "just visible" — see DECISIONS.md §7. */
 @media (prefers-reduced-motion: reduce) {
   html {

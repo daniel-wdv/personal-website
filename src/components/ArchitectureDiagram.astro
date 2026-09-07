@@ -1,0 +1,97 @@
+---
+/**
+ * The attribution event flow, as an inline SVG.
+ *
+ * Pure SVG plus CSS motion paths: the travelling dots use `offset-path`, so
+ * there is no JavaScript and no animation library. The dot paths are duplicates
+ * of the connector `d` attributes below; if you move a node, update both.
+ */
+const nodes = [
+  { x: 4, y: 8, w: 124, h: 48, label: "Mobile app" },
+  { x: 4, y: 120, w: 124, h: 48, label: "Web storefront" },
+  { x: 208, y: 64, w: 124, h: 48, label: "Ingest API" },
+  { x: 388, y: 64, w: 124, h: 48, label: "Message bus" },
+  { x: 568, y: 8, w: 148, h: 48, label: "Attribution" },
+  { x: 568, y: 120, w: 148, h: 48, label: "Analytics" },
+];
+
+const edges = [
+  "M128 32 C168 32 168 88 208 88",
+  "M128 144 C168 144 168 88 208 88",
+  "M332 88 H388",
+  "M512 88 C540 88 540 32 568 32",
+  "M512 88 C540 88 540 144 568 144",
+];
+---
+
+<figure class="mt-6">
+  <div class="overflow-x-auto rounded-lg border border-border bg-bg p-4">
+    <svg
+      viewBox="0 0 720 176"
+      class="diagram w-full min-w-[600px]"
+      role="img"
+      aria-label="Event flow: the mobile app and web storefront send tracking events to an ingest API, which publishes to a message bus consumed by the attribution store and analytics."
+    >
+      {
+        edges.map((d, i) => (
+          <>
+            <path d={d} class="edge" />
+            <circle r="3.5" class={`dot dot-${i + 1}`} />
+          </>
+        ))
+      }
+
+      {
+        nodes.map((node) => (
+          <>
+            <rect
+              x={node.x}
+              y={node.y}
+              width={node.w}
+              height={node.h}
+              rx="7"
+              class="node"
+            />
+            <text
+              x={node.x + node.w / 2}
+              y={node.y + node.h / 2 + 4}
+              class="label"
+            >
+              {node.label}
+            </text>
+          </>
+        ))
+      }
+    </svg>
+  </div>
+
+  <figcaption class="mt-3 font-mono text-xs text-muted">
+    One event, from a tap in the app to a paid reward.
+  </figcaption>
+</figure>
+
+<style>
+  /* Shared node/edge/dot chrome lives in global.css. Only the geometry is here.
+     These paths duplicate the connector `d` values above, because CSS cannot
+     read them from the SVG; move a node and both need updating. Delays stagger
+     the packets so they appear to travel the chain in order. */
+  .dot-1 {
+    offset-path: path("M128 32 C168 32 168 88 208 88");
+  }
+  .dot-2 {
+    offset-path: path("M128 144 C168 144 168 88 208 88");
+    animation-delay: 0.2s;
+  }
+  .dot-3 {
+    offset-path: path("M332 88 H388");
+    animation-delay: 0.55s;
+  }
+  .dot-4 {
+    offset-path: path("M512 88 C540 88 540 32 568 32");
+    animation-delay: 0.9s;
+  }
+  .dot-5 {
+    offset-path: path("M512 88 C540 88 540 144 568 144");
+    animation-delay: 1.05s;
+  }
+</style>

@@ -1,5 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
+import ArchitectureDiagram from "./ArchitectureDiagram.astro";
+import OwnershipDiagram from "./OwnershipDiagram.astro";
 import Section from "./Section.astro";
 
 const projects = (await getCollection("projects")).sort(
@@ -32,6 +34,9 @@ const entries = await Promise.all(
           <div class="mt-4 space-y-4 leading-relaxed text-muted text-pretty">
             <Content />
           </div>
+
+          {data.diagram === "attribution" && <ArchitectureDiagram />}
+          {data.diagram === "social-core" && <OwnershipDiagram />}
 
           {data.highlights.length > 0 && (
             <ul class="mt-5 space-y-2 text-muted text-pretty">

@@ -28,7 +28,7 @@ const entries = await Promise.all(
 <Section id="experience" label="Experience">
   <ol class="relative">
     {
-      entries.map(({ id, data, Content }) => (
+      entries.map(({ data, Content }) => (
         <li class="relative border-l border-border pb-12 pl-7 last:pb-0">
           {/* Node on the spine. */}
           <span
@@ -68,9 +68,12 @@ const entries = await Promise.all(
             </ul>
           )}
 
-          <ul class="mt-5 flex flex-wrap gap-2" aria-label={`Stack at ${data.company}`}>
+          <ul
+            class="mt-5 flex flex-wrap gap-2"
+            aria-label={`Stack at ${data.company}`}
+          >
             {data.stack.map((tech) => (
-              <li class="rounded border border-border bg-surface px-2 py-1 font-mono text-xs text-muted">
+              <li class="rounded border border-accent-dim bg-accent-dim/10 px-2 py-1 font-mono text-xs text-accent">
                 {tech}
               </li>
             ))}
@@ -80,3 +83,4 @@ const entries = await Promise.all(
     }
   </ol>
 </Section>
+

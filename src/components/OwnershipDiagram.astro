@@ -1,0 +1,110 @@
+---
+/**
+ * The social core ownership model.
+ *
+ * Deliberately a containment diagram rather than a left-to-right chain like the
+ * attribution one: the point here is the boundary. One service owns the
+ * database, everyone else goes through its API, and the dedup, the write and
+ * the event it publishes all happen inside a single transaction.
+ */
+const nodes = [
+  { x: 4, y: 96, w: 126, h: 44, label: "Other services" },
+  { x: 194, y: 96, w: 112, h: 44, label: "Ingest API" },
+  { x: 338, y: 70, w: 136, h: 36, label: "Inbox (dedup)" },
+  { x: 338, y: 116, w: 136, h: 36, label: "PostgreSQL" },
+  { x: 338, y: 162, w: 136, h: 36, label: "Outbox" },
+  { x: 506, y: 150, w: 110, h: 44, label: "Dispatcher" },
+  { x: 650, y: 150, w: 106, h: 44, label: "Consumers" },
+];
+
+const edges = [
+  "M130 118 H194",
+  "M306 118 C318 118 318 88 338 88",
+  "M306 118 C318 118 318 134 338 134",
+  "M306 118 C318 118 318 180 338 180",
+  "M474 180 C490 180 490 172 506 172",
+  "M616 172 H650",
+];
+---
+
+<figure class="mt-6">
+  <div class="overflow-x-auto rounded-lg border border-border bg-bg p-4">
+    <svg
+      viewBox="0 0 760 236"
+      class="diagram w-full min-w-[660px]"
+      role="img"
+      aria-label="Ownership model: other services call an ingest API rather than the database directly. Inside one transaction the service deduplicates the request through an inbox, writes to PostgreSQL and appends to an outbox. A dispatcher then publishes those events to downstream consumers."
+    >
+      {/* Ownership boundary, then the transaction inside it. */}
+      <rect x="176" y="8" width="452" height="220" rx="10" class="boundary" />
+      <text x="188" y="28" class="note">one service owns the data</text>
+
+      <rect x="326" y="40" width="160" height="176" rx="8" class="tx" />
+      <text x="334" y="60" class="note">one transaction</text>
+
+      {
+        edges.map((d, i) => (
+          <>
+            <path d={d} class="edge" />
+            <circle r="3.5" class={`dot dot-${i + 1}`} />
+          </>
+        ))
+      }
+
+      {
+        nodes.map((node) => (
+          <>
+            <rect
+              x={node.x}
+              y={node.y}
+              width={node.w}
+              height={node.h}
+              rx="7"
+              class="node"
+            />
+            <text
+              x={node.x + node.w / 2}
+              y={node.y + node.h / 2 + 4}
+              class="label"
+            >
+              {node.label}
+            </text>
+          </>
+        ))
+      }
+    </svg>
+  </div>
+
+  <figcaption class="mt-3 font-mono text-xs text-muted">
+    Nobody else touches the database. Dedup, write and event are one transaction.
+  </figcaption>
+</figure>
+
+<style>
+  /* Shared chrome is in global.css; these mirror the connector paths above.
+     Dots 2 to 4 share a delay on purpose: they are one transaction, not a
+     sequence. */
+  .dot-1 {
+    offset-path: path("M130 118 H194");
+  }
+  .dot-2 {
+    offset-path: path("M306 118 C318 118 318 88 338 88");
+    animation-delay: 0.45s;
+  }
+  .dot-3 {
+    offset-path: path("M306 118 C318 118 318 134 338 134");
+    animation-delay: 0.45s;
+  }
+  .dot-4 {
+    offset-path: path("M306 118 C318 118 318 180 338 180");
+    animation-delay: 0.45s;
+  }
+  .dot-5 {
+    offset-path: path("M474 180 C490 180 490 172 506 172");
+    animation-delay: 0.95s;
+  }
+  .dot-6 {
+    offset-path: path("M616 172 H650");
+    animation-delay: 1.3s;
+  }
+</style>
