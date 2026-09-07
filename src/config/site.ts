@@ -29,6 +29,7 @@ export const site = {
     { label: "Work", href: "#work" },
     { label: "Experience", href: "#experience" },
     { label: "References", href: "#recommendations" },
+    { label: "Outside work", href: "#interests" },
     { label: "Contact", href: "#contact" },
   ],
 } as const satisfies {
